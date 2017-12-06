@@ -13,7 +13,7 @@ public abstract class Employee {
 
     public abstract double getPeriodSalary(int hours);
 
-    public double getSalaryRate() {
+    double getSalaryRate() {
         return salaryRate;
     }
 

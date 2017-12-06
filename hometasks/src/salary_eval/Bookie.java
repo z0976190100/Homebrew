@@ -1,9 +1,9 @@
 package salary_eval;
 
 
-public class Bookie {
+class Bookie {
 
-    public double takeYourMoneyPlease(Employee goodboy, int goodboysHours){
+    double takeYourMoneyPlease(Employee goodboy, int goodboysHours){
 
         return goodboy.getPeriodSalary(goodboysHours);
 
