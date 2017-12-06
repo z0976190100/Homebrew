@@ -8,6 +8,7 @@ public class Manager extends Employee{
         super(sr);
     }
 
+
     @Override
     public double getPeriodSalary(int hours) {
         switch (hours){
