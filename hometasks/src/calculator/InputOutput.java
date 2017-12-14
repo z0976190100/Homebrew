@@ -6,28 +6,23 @@ import java.util.Scanner;
 
 public class InputOutput {
 
-BigDecimal getUserInput (){
+static String getUserInput (){
     Scanner sc = new Scanner(System.in);
     String userInput = sc.nextLine();
-    parseUserInput(userInput);
-    return null;
+    //parseUserInput(userInput);
+    return userInput;
 }
 
-void userInputRecognize(String ui){
-    switch (ui){
 
-        case "+":
-
-    }
-
+static void userOutput(BigDecimal output){
+    System.out.println("=" + output.toString());
 }
-
 // cases with regexps
 private void parseUserInput (String uInput){
     DecimalFormat df = new DecimalFormat();
     df.setParseBigDecimal(true);
    BigDecimal parsed = new BigDecimal(uInput);
-    CalculatorController.dispatchOperator(uInput);
+    ///CalculatorController.dispatchOperator(uInput);
 }
 
 

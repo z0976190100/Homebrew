@@ -1,27 +1,69 @@
 package calculator;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import static calculator.CalculatorStack.eStack;
 import static calculator.CalculatorStack.eStackCounter;
 
 public class CalculatorController {
 
+    void startCalc(){
+        eStackCounter = 0;
+
+        dispatchOperandX();
+    }
+
     void stackTop() {
         if (eStackCounter == 0) {
             return;
         }
-        dispatchOperator("out");
+        dispatchOperator();
     }
 
-    static void dispatchOperandX(String par) {
+   private void dispatchOperandX() {
+        String par = InputOutput.getUserInput();
 
+        try{
+            int test = Integer.parseInt(par);
+            DecimalFormat df = new DecimalFormat();
+            df.setParseBigDecimal(true);
+            BigDecimal opX = new BigDecimal(par);
+            eStack.add(opX);
+           eStackCounter = eStack.size()-1;
+            dispatchOperator();
+        }catch(Exception e){
+            System.out.println("wrong input, try snova: ");
+            dispatchOperandX();
+        }
     }
 
-    static void dispatchOperator(String par) {
-        // cases with regexps
+      void dispatchOperandY() {
+        String par = InputOutput.getUserInput();
+
+        try{
+            int test = Integer.parseInt(par);
+            BigDecimal opY = new BigDecimal(par);
+            eStack.add(opY);
+           eStackCounter = eStack.size()-1;
+            return;
+        }catch(Exception e){
+            System.out.println("wrong input, try snova: ");
+            dispatchOperandY();
+        }
+    }
+
+   private void dispatchOperator() {
+        String par = InputOutput.getUserInput();
+
         switch (par) {
             case "+":
                 // binary operations call
                 // call operandY waiting state
+                dispatchOperandY();
+                new EvaluatorBinaryAdding(eStack.get(eStackCounter-1), eStack.get(eStackCounter));
+                InputOutput.userOutput(eStack.get(eStackCounter));
+                dispatchOperator();
                 break;
             case "-":
                 //call operandY waiting state
@@ -46,7 +88,9 @@ public class CalculatorController {
             case "out":
                 //
                 break;
-
+default:
+    System.out.println("wrong input, do again.");
+    dispatchOperator();
         }
     }
 }

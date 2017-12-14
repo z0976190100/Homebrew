@@ -2,11 +2,18 @@ package calculator;
 
 import java.math.BigDecimal;
 
-public class EvaluatorBinaryAdding extends BinaryOperation implements EvaluatorBinary {
+import static calculator.CalculatorStack.eStackCounter;
+import static calculator.CalculatorStack.eStack;
 
-    @Override
-    public BigDecimal evaluateBinary(BigDecimal x, BigDecimal y) {
+public class EvaluatorBinaryAdding extends BinaryOperation {
 
-        return x.add(y);
+    EvaluatorBinaryAdding(BigDecimal x, BigDecimal y) {
+        evaluateXY(x, y);
+    }
+
+    public BigDecimal evaluateXY(BigDecimal x, BigDecimal y) {
+        eStack.add(x.add(y));
+        eStackCounter = eStack.size()-1;
+        return null;
     }
 }

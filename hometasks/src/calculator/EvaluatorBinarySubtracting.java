@@ -2,10 +2,10 @@ package calculator;
 
 import java.math.BigDecimal;
 
-public class EvaluatorBinarySubtracting implements EvaluatorBinary {
+public class EvaluatorBinarySubtracting extends BinaryOperation {
 
-    @Override
-    public BigDecimal evaluateBinary(BigDecimal x, BigDecimal y) {
+
+    public BigDecimal evaluateXY(BigDecimal x, BigDecimal y) {
         return x.subtract(y);
     }
 }

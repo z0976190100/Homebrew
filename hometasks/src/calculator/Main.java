@@ -13,7 +13,9 @@ public class Main {
         BigDecimal x = null;
         BigDecimal y = null;
         String oper = "";
-        InputOutput io = new InputOutput();
+
+        CalculatorController calc = new CalculatorController();
+        calc.startCalc();
 
        /* while (true) {
             Scanner sc = new Scanner(System.in);
@@ -27,7 +29,7 @@ public class Main {
             }
         }*/
 
-       while (true) {
+      /* while (true) {
 
           if(eStack.get(0) == null){
               eStack.add(io.getUserInput());
@@ -39,6 +41,6 @@ public class Main {
           if(eStack.get(eStackCounter) == null){}
             //*Evaluator ev = new EvaluatorBinary() ;
            // ev.evaluateBinary(x, oper, y);
-        }
+        }*/
     }
 }
