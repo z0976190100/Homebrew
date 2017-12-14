@@ -1,14 +1,11 @@
 package calculator;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public abstract class CalculatorStack {
 
-    static List<BigDecimal> eStack = new ArrayList<>();
+    static Deque<BigDecimal> eStack = new LinkedList<>();
     static Iterator<BigDecimal> iterator = eStack.iterator();
     static int eStackCounter = 0;
 

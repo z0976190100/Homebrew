@@ -10,7 +10,8 @@ public class CalculatorController {
 
     void startCalc(){
         eStackCounter = 0;
-
+        DecimalFormat df = new DecimalFormat();
+        df.setParseBigDecimal(true);
         dispatchOperandX();
     }
 
@@ -26,11 +27,10 @@ public class CalculatorController {
 
         try{
             int test = Integer.parseInt(par);
-            DecimalFormat df = new DecimalFormat();
-            df.setParseBigDecimal(true);
+
             BigDecimal opX = new BigDecimal(par);
-            eStack.add(opX);
-           eStackCounter = eStack.size()-1;
+            eStack.push(opX);
+           //eStackCounter = eStack.size()-1;
             dispatchOperator();
         }catch(Exception e){
             System.out.println("wrong input, try snova: ");
@@ -44,8 +44,8 @@ public class CalculatorController {
         try{
             int test = Integer.parseInt(par);
             BigDecimal opY = new BigDecimal(par);
-            eStack.add(opY);
-           eStackCounter = eStack.size()-1;
+            eStack.push(opY);
+           //eStackCounter = eStack.size()-1;
             return;
         }catch(Exception e){
             System.out.println("wrong input, try snova: ");
@@ -59,14 +59,15 @@ public class CalculatorController {
         switch (par) {
             case "+":
                 // binary operations call
-                // call operandY waiting state
-                dispatchOperandY();
-                new EvaluatorBinaryAdding(eStack.get(eStackCounter-1), eStack.get(eStackCounter));
-                InputOutput.userOutput(eStack.get(eStackCounter));
+
+                new BinaryAdding(eStack.pop(),binaryCase());
+                InputOutput.userOutput(eStack.getLast());
                 dispatchOperator();
                 break;
             case "-":
-                //call operandY waiting state
+                new BinarySubtracting(eStack.pop(), binaryCase());
+                InputOutput.userOutput(eStack.getLast());
+                dispatchOperator();
                 break;
             case "/":
                 // call binary division meth
@@ -93,4 +94,11 @@ default:
     dispatchOperator();
         }
     }
+
+    BigDecimal binaryCase(){
+        dispatchOperandY();
+       return eStack.pop();
+
+    }
+
 }
