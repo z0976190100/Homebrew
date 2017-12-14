@@ -2,35 +2,26 @@ package calculator;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
 
 import static calculator.CalculatorStack.eStack;
-import static calculator.CalculatorStack.eStackCounter;
 
-public class CalculatorController {
+class CalculatorController {
 
     void startCalc(){
-        eStackCounter = 0;
+        eStack = new LinkedList<>();
+        System.out.println("0");
         DecimalFormat df = new DecimalFormat();
         df.setParseBigDecimal(true);
         dispatchOperandX();
-    }
-
-    void stackTop() {
-        if (eStackCounter == 0) {
-            return;
-        }
-        dispatchOperator();
     }
 
    private void dispatchOperandX() {
         String par = InputOutput.getUserInput();
 
         try{
-            int test = Integer.parseInt(par);
-
             BigDecimal opX = new BigDecimal(par);
             eStack.push(opX);
-           //eStackCounter = eStack.size()-1;
             dispatchOperator();
         }catch(Exception e){
             System.out.println("wrong input, try snova: ");
@@ -40,15 +31,12 @@ public class CalculatorController {
 
       void dispatchOperandY() {
         String par = InputOutput.getUserInput();
-
         try{
-            int test = Integer.parseInt(par);
             BigDecimal opY = new BigDecimal(par);
             eStack.push(opY);
-           //eStackCounter = eStack.size()-1;
             return;
         }catch(Exception e){
-            System.out.println("wrong input, try snova: ");
+            System.out.println("wrong input, NaN: ");
             dispatchOperandY();
         }
     }
@@ -70,24 +58,26 @@ public class CalculatorController {
                 dispatchOperator();
                 break;
             case "/":
-                // call binary division meth
+                new BinaryDivision(eStack.pop(), binaryCase());
+                InputOutput.userOutput(eStack.getLast());
+                dispatchOperator();
                 break;
             case "*":
-                // call binary divi
+                new BinaryMultiplication(eStack.pop(), binaryCase());
+                InputOutput.userOutput(eStack.getLast());
+                dispatchOperator();
                 break;
-
-            // call operandY waiting state
             case "d":
                 //clear last input;
                 break;
             case "c":
-                // clear eStack, output zero, operandY wait state
+                startCalc();
                 break;
             case "=":
                 // result output, clear eStack, put result on top, any input wait state
                 break;
             case "out":
-                //
+                System.exit(0);
                 break;
 default:
     System.out.println("wrong input, do again.");

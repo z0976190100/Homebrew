@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import static calculator.CalculatorStack.eStack;
 
-public class BinarySubtracting extends BinaryOperation {
+public class BinarySubtracting implements BinaryOperation {
 
 
     BinarySubtracting(BigDecimal x, BigDecimal y) {
@@ -13,7 +13,6 @@ public class BinarySubtracting extends BinaryOperation {
 
     public BigDecimal evaluateXY(BigDecimal x, BigDecimal y) {
         eStack.push(x.subtract(y));
-        //eStackCounter = eStack.size()-1;
         return null;
     }
 
