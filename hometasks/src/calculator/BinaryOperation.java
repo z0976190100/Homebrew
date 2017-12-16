@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 interface BinaryOperation {
 
-   BigDecimal evaluateXY(BigDecimal x, BigDecimal y);
-
-
+   void evaluateXY(BigDecimal x, BigDecimal y);
+    //void alterEvaluate();
 }

@@ -7,13 +7,21 @@ import static calculator.CalculatorStack.eStack;
 public class BinarySubtracting implements BinaryOperation {
 
 
+    public static BinaryOperation getInstance() {
+        return new BinarySubtracting();
+    }
+ private BinarySubtracting(){};
+
     BinarySubtracting(BigDecimal x, BigDecimal y) {
         evaluateXY(x, y);
     }
 
-    public BigDecimal evaluateXY(BigDecimal x, BigDecimal y) {
+    public void evaluateXY(BigDecimal x, BigDecimal y) {
         eStack.push(x.subtract(y));
-        return null;
     }
 
+    @Override
+    public void alterEvaluate() {
+
+    }
 }

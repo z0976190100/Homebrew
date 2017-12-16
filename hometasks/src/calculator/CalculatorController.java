@@ -2,56 +2,74 @@ package calculator;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
+import static calculator.BinaryOps.ADDING;
 import static calculator.CalculatorStack.eStack;
 
 class CalculatorController {
 
-    void startCalc(){
+    // registration of binary ops
+    static Map<String, BinaryOps> binaryOpsMapper = new HashMap<>();
+
+    static {
+        binaryOpsMapper.put("+", ADDING);
+    }
+
+    static void startCalc() {
         eStack = new LinkedList<>();
         System.out.println("0");
         DecimalFormat df = new DecimalFormat();
         df.setParseBigDecimal(true);
-        dispatchOperandX();
+        getOperandX();
     }
 
-   private void dispatchOperandX() {
+    static void getOperandX() {
         String par = InputOutput.getUserInput();
 
-        try{
+        try {
             BigDecimal opX = new BigDecimal(par);
             eStack.push(opX);
             dispatchOperator();
-        }catch(Exception e){
-            System.out.println("wrong input, try snova: ");
-            dispatchOperandX();
+        } catch (Exception e) {
+            System.out.println("wrong input, NaN : ");
+            getOperandX();
         }
     }
 
-      void dispatchOperandY() {
+    static void getOperandY() {
         String par = InputOutput.getUserInput();
-        try{
+        try {
             BigDecimal opY = new BigDecimal(par);
             eStack.push(opY);
             return;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("wrong input, NaN: ");
-            dispatchOperandY();
+            getOperandY();
         }
     }
 
-   private void dispatchOperator() {
+    static void dispatchOperator() {
         String par = InputOutput.getUserInput();
+// if unary
+
+        // if binary
+        if (binaryOpsMapper.containsKey(par)) {
+            binaryOpsMapper.get(par).getBiOp().alterEvaluate();
+            dispatchOperator();
+        }
+
 
         switch (par) {
-            case "+":
+           /* case "+":
                 // binary operations call
 
                 new BinaryAdding(eStack.pop(),binaryCase());
                 InputOutput.userOutput(eStack.getLast());
                 dispatchOperator();
-                break;
+                break;*/
             case "-":
                 new BinarySubtracting(eStack.pop(), binaryCase());
                 InputOutput.userOutput(eStack.getLast());
@@ -79,15 +97,15 @@ class CalculatorController {
             case "out":
                 System.exit(0);
                 break;
-default:
-    System.out.println("wrong input, do again.");
-    dispatchOperator();
+            default:
+                System.out.println("wrong input, do again.");
+                dispatchOperator();
         }
     }
 
-    BigDecimal binaryCase(){
-        dispatchOperandY();
-       return eStack.pop();
+    static BigDecimal binaryCase() {
+        getOperandY();
+        return eStack.pop();
 
     }
 

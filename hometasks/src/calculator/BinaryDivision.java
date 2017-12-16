@@ -6,13 +6,25 @@ import static calculator.CalculatorStack.eStack;
 
 public class BinaryDivision implements BinaryOperation {
 
+
+    public static BinaryOperation getInstance() {
+        return new BinaryDivision();
+    }
+
+    private BinaryDivision() {
+    }
+
     BinaryDivision(BigDecimal x, BigDecimal y) {
         evaluateXY(x, y);
     }
 
     @Override
-    public BigDecimal evaluateXY(BigDecimal x, BigDecimal y) {
+    public void evaluateXY(BigDecimal x, BigDecimal y) {
         eStack.push(x.divide(y));
-        return null;
+    }
+
+    @Override
+    public void alterEvaluate() {
+
     }
 }
