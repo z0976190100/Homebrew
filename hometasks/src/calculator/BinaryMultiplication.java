@@ -23,8 +23,4 @@ public class BinaryMultiplication extends BinaryOperationAbs {
         eStack.push(x.multiply(y));
     }
 
-    @Override
-    public void alterEvaluate() {
-
-    }
 }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public enum BinaryOps {
     ADDING(BinaryAdding.getInstance()),
-    SUBSTRACTING(BinarySubtracting.getInstance()),
+    SUBSTRACTION(BinarySubtracting.getInstance()),
     DIVISION(BinaryDivision.getInstance()),
     MULTIPLICATION(BinaryMultiplication.getInstance());
 

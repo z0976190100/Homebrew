@@ -21,9 +21,4 @@ public class BinarySubtracting extends BinaryOperationAbs {
         BigDecimal subtract = x.subtract(y);
         eStack.push(subtract);
     }
-
-    @Override
-    public void alterEvaluate() {
-
-    }
 }

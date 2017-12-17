@@ -5,8 +5,9 @@ public class Main {
     public static void main(String[] args) {
 
 
-        CalculatorController calc = new CalculatorController();
-        calc.startCalc();
+
+        /*CalculatorController calc = new CalculatorController();*/
+        CalculatorController.startCalc();
 
 
     }

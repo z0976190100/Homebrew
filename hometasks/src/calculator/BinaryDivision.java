@@ -23,8 +23,4 @@ public class BinaryDivision extends BinaryOperationAbs {
         eStack.push(x.divide(y));
     }
 
-    @Override
-    public void alterEvaluate() {
-
-    }
 }

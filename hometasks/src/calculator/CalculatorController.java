@@ -6,16 +6,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import static calculator.BinaryOps.ADDING;
+import static calculator.BinaryOps.*;
 import static calculator.CalculatorStack.eStack;
 
 class CalculatorController {
 
     // registration of binary ops
     static Map<String, BinaryOps> binaryOperationMap = new HashMap<>();
+    static Map<String, UtilOps> utilitaryOpsMap = new HashMap<>();
 
     static {
         binaryOperationMap.put("+", ADDING);
+        binaryOperationMap.put("-", SUBSTRACTION);
+        binaryOperationMap.put("/", DIVISION);
+        binaryOperationMap.put("*", MULTIPLICATION);
     }
 
     static void startCalc() {
@@ -58,35 +62,14 @@ class CalculatorController {
         // if binary
         if (binaryOperationMap.containsKey(par)) {
            binaryOperationMap.get(par).getBiOp().alterEvaluate();
-
             dispatchOperator();
         }
 
-
         switch (par) {
-           /* case "+":
-                // binary operations call
 
-                new BinaryAdding(eStack.pop(),binaryCase());
-                InputOutput.userOutput(eStack.getLast());
-                dispatchOperator();
-                break;*/
-            case "-":
-                new BinarySubtracting(eStack.pop(), binaryCase());
-                InputOutput.userOutput(eStack.getLast());
-                dispatchOperator();
-                break;
-            case "/":
-                new BinaryDivision(eStack.pop(), binaryCase());
-                InputOutput.userOutput(eStack.getLast());
-                dispatchOperator();
-                break;
-            case "*":
-                new BinaryMultiplication(eStack.pop(), binaryCase());
-                InputOutput.userOutput(eStack.getLast());
-                dispatchOperator();
-                break;
             case "d":
+                eStack.pop();
+                getOperandX();
                 //clear last input;
                 break;
             case "c":
@@ -99,7 +82,7 @@ class CalculatorController {
                 System.exit(0);
                 break;
             default:
-                System.out.println("wrong input, do again.");
+                System.out.println("wrong input, operator is required.");
                 dispatchOperator();
         }
     }
