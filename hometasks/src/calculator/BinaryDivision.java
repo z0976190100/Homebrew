@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 import static calculator.CalculatorStack.eStack;
 
-public class BinaryDivision implements BinaryOperation {
+public class BinaryDivision extends BinaryOperationAbs {
 
 
-    public static BinaryOperation getInstance() {
+    public static BinaryDivision getInstance() {
         return new BinaryDivision();
     }
 

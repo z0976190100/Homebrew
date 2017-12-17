@@ -12,10 +12,10 @@ import static calculator.CalculatorStack.eStack;
 class CalculatorController {
 
     // registration of binary ops
-    static Map<String, BinaryOps> binaryOpsMapper = new HashMap<>();
+    static Map<String, BinaryOps> binaryOperationMap = new HashMap<>();
 
     static {
-        binaryOpsMapper.put("+", ADDING);
+        binaryOperationMap.put("+", ADDING);
     }
 
     static void startCalc() {
@@ -56,8 +56,9 @@ class CalculatorController {
 // if unary
 
         // if binary
-        if (binaryOpsMapper.containsKey(par)) {
-            binaryOpsMapper.get(par).getBiOp().alterEvaluate();
+        if (binaryOperationMap.containsKey(par)) {
+           binaryOperationMap.get(par).getBiOp().alterEvaluate();
+
             dispatchOperator();
         }
 

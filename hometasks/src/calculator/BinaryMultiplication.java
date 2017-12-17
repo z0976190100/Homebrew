@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 import static calculator.CalculatorStack.eStack;
 
-public class BinaryMultiplication implements BinaryOperation {
+public class BinaryMultiplication extends BinaryOperationAbs {
 
 
-    public static BinaryOperation getInstance() {
+    public static BinaryMultiplication getInstance() {
         return new BinaryMultiplication();
     }
 

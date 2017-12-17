@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import static calculator.CalculatorStack.eStack;
 
-public class BinaryOperationImpl implements BinaryOperation {
+public class BinaryOperationAbs implements BinaryOperation {
 
     @Override
     public void evaluateXY(BigDecimal x, BigDecimal y) {

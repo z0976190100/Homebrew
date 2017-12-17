@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 
 import static calculator.CalculatorStack.eStack;
 
-public class BinaryAdding extends BinaryOperationImpl implements BinaryOperation {
+public class BinaryAdding extends BinaryOperationAbs {
 
 
-    static BinaryOperation getInstance() {
+    static BinaryAdding getInstance() {
         return new BinaryAdding();
     }
 
-    private BinaryAdding() {
+   public   BinaryAdding() {
         super();
     }
 
