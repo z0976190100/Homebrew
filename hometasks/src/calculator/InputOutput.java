@@ -7,7 +7,9 @@ class InputOutput {
 
 static String getUserInput (){
     Scanner sc = new Scanner(System.in);
-    return sc.nextLine();
+    String nextLine = sc.nextLine();
+    sc.close();
+    return nextLine;
 }
 
 
