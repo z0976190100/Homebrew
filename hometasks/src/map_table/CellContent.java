@@ -2,9 +2,11 @@ package map_table;
 
 public class CellContent implements Comparable<CellContent>{
 
-    String content;
+    CellContent content;
 
-    CellContent(int row, int col, String content){
+    CellContent(){}
+
+    CellContent(int row, int col, CellContent content){
         this.content = content;
     }
 

@@ -9,11 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-       /* Console console = System.console();
-
-        if(console == null){
-            System.err.println("Console not exist");
-            System.exit(1);*/
 
         Scanner sc = new Scanner(System.in);
 

@@ -4,17 +4,24 @@ import java.util.*;
 
 public class Table {
 
-    String [] header;
-//    List<Map> sortedRows = new LinkedList<>();
+
+
+   public void toStringWithPagination(List list, int r) {
+
+
+   }
+
+    String[] header;
+
 
     Map<String, CellContent> row = new HashMap<>();
     List<Map<String, CellContent>> rows = new ArrayList<>();
 
 
-    Table(String... colNames) {
+   Table(String... colNames) {
         header = new String[colNames.length];
         for (int i = 0; i < colNames.length; i++) {
-            this.header[i]= colNames[i];
+            this.header[i] = colNames[i];
         }
 
        /* for (int r = 0; r < row; r++) {
@@ -32,32 +39,43 @@ public class Table {
         temp.put(c, cont);
         rows.put(r - 1, temp);
     }
+*/
+    void setCellContentByColName(int r, String colName, CellContent cc) {
+        Map<String, CellContent> temp = new HashMap<>();
 
-    String getCellContentByColName(int r, String colName) {
-        SortedMap<String, String> temp = rows.get(r - 1);
-        String result = temp.get(colName);
-        return result;
-    }*/
+        if (this.rows.size() >= r - 1) {
+            temp = this.rows.get(r - 1);
+        }
+
+        for (int i = rows.size() - 1; i < r; i++) {
+            temp.put(colName, null);
+            rows.add(temp);
+        }
+        temp.put(colName, cc);
+        rows.add(r - 1, temp);
+    }
 
     Iterator paginateBy(int start, int r) {  // r is rows-on-page
 
         try {
-          List<Map<String, CellContent>> temp =  this.rows.subList(start, start+r);
-          Iterator iterator = temp.iterator();
-          return iterator;
-       }catch (RuntimeException e){
-           System.out.println("out of bonds, man");
-       }
-        return  null;
+            List<Map<String, CellContent>> temp = this.rows.subList(start, start + r);
+            Iterator iterator = temp.iterator();
+            return iterator;
+        } catch (RuntimeException e) {
+            System.out.println("out of bonds, man");
+        }
+        return null;
     }
 
-    void sortDescending(String col){
+    void sortDescending(String col) {
 
-       Map<Integer, CellContent> colToSort = new HashMap<>();
-        for(int i = 0; i< rows.size(); i++ ){
-            colToSort.put(i, rows.get(i).get(col));
+        CellContent[] colToSort = new CellContent[rows.size()];
+        int[] rowId = new int[rows.size()];
+        for (int i = 0; i < rows.size(); i++) {
+            colToSort[i] = rows.get(i).get(col);
+            rowId[i] = i;
         }
-
+        this.qSort(colToSort, 1, colToSort.length - 1);
 
        /* List<String> tempSorted = new ArrayList<>();
         List<Integer> tempSortedId = new ArrayList<>();
@@ -76,67 +94,61 @@ public class Table {
          return sortedRows;*/
     }
 
+    void qSort(CellContent arr[], int low, int high) {
+        if (low < high) {
+            /* pi is partitioning index, arr[pi] is
+              now at right place */
+            int pi = partition(arr, low, high);
 
-   void toStringWithPagination(List list, int r){
+            // Recursively sort elements before
+            // partition and after partition
+            qSort(arr, low, pi - 1);
+            qSort(arr, pi + 1, high);
+        }
+    }
 
+    int partition(CellContent arr[], int low, int high) {
+        CellContent cellContent = new CellContent();
+        CellContent pivot = arr[high];
+        int i = (low - 1); // index of smaller element
+        for (int j = low; j <= high - 1; j++) {
+            // If current element is smaller than or
+            // equal to pivot
+            int compResult = arr[j].compareTo(pivot);
+            if (compResult <= 0) {
+                i++;
 
+                // swap arr[i] and arr[j]
+                CellContent temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
 
+        // swap arr[i+1] and arr[high] (or pivot)
+        CellContent temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
     }
 
 
-    class QuickSort
-    {
+
+
+    class QuickSort {
         /* This function takes last element as pivot,
            places the pivot element at its correct
            position in sorted array, and places all
            smaller (smaller than pivot) to left of
            pivot and all greater elements to right
            of pivot */
-        int partition(int arr[], int low, int high)
-        {
-            int pivot = arr[high];
-            int i = (low-1); // index of smaller element
-            for (int j=low; j<=high-1; j++)
-            {
-                // If current element is smaller than or
-                // equal to pivot
-                if (arr[j] <= pivot)
-                {
-                    i++;
 
-                    // swap arr[i] and arr[j]
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-
-            // swap arr[i+1] and arr[high] (or pivot)
-            int temp = arr[i+1];
-            arr[i+1] = arr[high];
-            arr[high] = temp;
-
-            return i+1;
-        }
 
         /* The main function that implements QuickSort()
           arr[] --> Array to be sorted,
           low  --> Starting index,
           high  --> Ending index */
-        void qSort(int arr[], int low, int high)
-        {
-            if (low < high)
-            {
-            /* pi is partitioning index, arr[pi] is
-              now at right place */
-                int pi = partition(arr, low, high);
-
-                // Recursively sort elements before
-                // partition and after partition
-                qSort(arr, low, pi-1);
-                qSort(arr, pi+1, high);
-            }
-        }
     }
 
 }
