@@ -1,6 +1,7 @@
 package regex_training;
 
 import java.io.Console;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,13 @@ public class Main {
 
                 System.out.println("Enter string you want to you know what:");
                 Matcher matcher =
-                        pattern.matcher(sc.nextLine());
+                        null;
+                try {
+                    matcher = pattern.matcher(sc.next("(\\+?|\\-?)(0\\.)?((\\,?)(\\d){1,3})*\\.?\\d+"));
+                } catch (InputMismatchException e) {
+                    System.out.println("repeat input.");
+                    break;
+                }
 
                 boolean hit = false;
 
