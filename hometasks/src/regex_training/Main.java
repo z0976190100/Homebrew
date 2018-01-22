@@ -11,23 +11,22 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Scanner sc = new Scanner(System.in);
+
 
             while (true){
 
-                System.out.println("%nEnter your RegExp: ");
-
-                Pattern pattern =
-                        Pattern.compile(sc.nextLine());
+                System.out.println("Enter your RegExp: ");
+                Scanner sc = new Scanner(System.in);
+                Pattern pattern = Pattern.compile(sc.nextLine());
 
                 System.out.println("Enter string you want to you know what:");
-                Matcher matcher =
-                        null;
+                Matcher matcher = null;
+
                 try {
                     matcher = pattern.matcher(sc.next("(\\+?|\\-?)(0\\.)?((\\,?)(\\d){1,3})*\\.?\\d+"));
                 } catch (InputMismatchException e) {
                     System.out.println("repeat input.");
-                    break;
+                    matcher = pattern.matcher("u");
                 }
 
                 boolean hit = false;
@@ -40,7 +39,7 @@ public class Main {
                     hit = true;
                 }
                 if(!hit){
-                    System.out.printf("No match found.%n");
+                    System.out.println("No match found.");
                 }
         }
     }

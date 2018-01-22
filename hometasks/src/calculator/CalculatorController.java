@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static calculator.BinaryOps.*;
 import static calculator.CalculatorStack.eStack;
+import static calculator.InputOutput.locale;
 
 class CalculatorController {
 
@@ -27,6 +28,7 @@ class CalculatorController {
         System.out.println("0");
         DecimalFormat df = new DecimalFormat();
         df.setParseBigDecimal(true);
+        locale = "ua";
         getOperandX();
     }
 
@@ -37,7 +39,7 @@ class CalculatorController {
             BigDecimal opX = new BigDecimal(par);
             eStack.push(opX);
             dispatchOperator();
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("wrong input, NaN : ");
             getOperandX();
         }
@@ -45,23 +47,24 @@ class CalculatorController {
 
     static void getOperandY() {
         String par = InputOutput.getUserInput();
+
         try {
-            BigDecimal opY = new BigDecimal(par);
+            BigDecimal opY = new MyBigDecimal(par);
             eStack.push(opY);
             return;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("wrong input, NaN: ");
             getOperandY();
         }
     }
 
     static void dispatchOperator() {
-        String par = InputOutput.getUserInput();
+        String par = InputOutput.getUserInputOperator();
 // if unary
 
         // if binary
         if (binaryOperationMap.containsKey(par)) {
-           binaryOperationMap.get(par).getBiOp().alterEvaluate();
+            binaryOperationMap.get(par).getBiOp().alterEvaluate();
             dispatchOperator();
         }
 
