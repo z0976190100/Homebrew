@@ -4,70 +4,64 @@ import java.util.*;
 
 public class Table {
 
-
-
-   public void toStringWithPagination(List list, int r) {
-
-
-   }
-
     String[] header;
+    private List<Map<String, CellContent>> rows = new ArrayList<>();
+    int pagesQuantity;
 
-
-    Map<String, CellContent> row = new HashMap<>();
-    List<Map<String, CellContent>> rows = new ArrayList<>();
-
-
-   Table(String... colNames) {
+    Table(String... colNames) {
         header = new String[colNames.length];
         for (int i = 0; i < colNames.length; i++) {
             this.header[i] = colNames[i];
         }
-
-       /* for (int r = 0; r < row; r++) {
-            this.row = new TreeMap<>();
-            for (int i = 0; i < colNames.length; i++) {
-                this.row.put(colNames[i], "empty");
-            }
-            this.rows.put(r, this.row);
-            System.out.println(rows.toString());
-        }*/
     }
 
-    /*void setCellByIndex(int r, String c, String cont) {
-        SortedMap<String, String> temp = rows.get(r - 1);
-        temp.put(c, cont);
-        rows.put(r - 1, temp);
+
+    public void add(Map<String, CellContent> map) {
+        // validation???
+        this.rows.add(map);
+
     }
-*/
-    void setCellContentByColName(int r, String colName, CellContent cc) {
+
+    public void setCellContentByColName(int row, String colName, CellContent content) {
         Map<String, CellContent> temp = new HashMap<>();
 
-        if (this.rows.size() >= r - 1) {
-            temp = this.rows.get(r - 1);
+        if (this.rows.size() >= row - 1) {
+            temp = this.rows.get(row - 1);
         }
 
-        for (int i = rows.size() - 1; i < r; i++) {
+        for (int i = rows.size() - 1; i < row; i++) {
             temp.put(colName, null);
             rows.add(temp);
         }
-        temp.put(colName, cc);
-        rows.add(r - 1, temp);
+        temp.put(colName, content);
+        rows.add(row - 1, temp);
     }
 
-    Iterator paginateBy(int start, int r) {  // r is rows-on-page
+    public int pageCount(int rowsOnPage) {
+
+        if (rowsOnPage > 0 && rowsOnPage <= this.rows.size()) {
+
+            int size = this.rows.size();
+            this.pagesQuantity = size % rowsOnPage == 0 ? size / rowsOnPage : size / rowsOnPage + 1;
+            return pagesQuantity;
+        }
+
+        return 0;
+    }
+
+    public Iterator iterateRange(int start, int rowsInRange) {  // r is rows-on-page
 
         try {
-            List<Map<String, CellContent>> temp = this.rows.subList(start, start + r);
+            List<Map<String, CellContent>> temp = this.rows.subList(start, start + rowsInRange);
             Iterator iterator = temp.iterator();
             return iterator;
-        } catch (RuntimeException e) {
-            System.out.println("out of bonds, man");
+        } catch (RuntimeException e) {              // ??????????? how to is a good practice?
+            System.out.println("out of bounds, man");
         }
         return null;
     }
 
-    void sortDescending(String col) {
+    public void sortDescending(String col) {
 
         CellContent[] colToSort = new CellContent[rows.size()];
         int[] rowId = new int[rows.size()];
@@ -76,25 +70,9 @@ public class Table {
             rowId[i] = i;
         }
         this.qSort(colToSort, 1, colToSort.length - 1);
-
-       /* List<String> tempSorted = new ArrayList<>();
-        List<Integer> tempSortedId = new ArrayList<>();
-        for (Integer rowIn: rows.keySet()) {
-             String tempStr = rows.get(rowIn).get(col);
-            tempSorted.add(tempStr);
-            int i = tempSorted.indexOf(tempStr);
-            tempSortedId.add(i, rowIn);
-        }
-         for(String string: tempSorted){
-            int i = 0;
-             SortedMap<String, String> map = rows.get(tempSortedId.get(i));
-             sortedRows.add(map);
-             i++;
-         }
-         return sortedRows;*/
     }
 
-    void qSort(CellContent arr[], int low, int high) {
+    private void qSort(CellContent arr[], int low, int high) {
         if (low < high) {
             /* pi is partitioning index, arr[pi] is
               now at right place */
@@ -107,8 +85,8 @@ public class Table {
         }
     }
 
-    int partition(CellContent arr[], int low, int high) {
-        CellContent cellContent = new CellContent();
+    private int partition(CellContent arr[], int low, int high) {
+
         CellContent pivot = arr[high];
         int i = (low - 1); // index of smaller element
         for (int j = low; j <= high - 1; j++) {
@@ -133,22 +111,7 @@ public class Table {
         return i + 1;
     }
 
-
-
-
-    class QuickSort {
-        /* This function takes last element as pivot,
-           places the pivot element at its correct
-           position in sorted array, and places all
-           smaller (smaller than pivot) to left of
-           pivot and all greater elements to right
-           of pivot */
-
-
-        /* The main function that implements QuickSort()
-          arr[] --> Array to be sorted,
-          low  --> Starting index,
-          high  --> Ending index */
+    public void toStringWithPagination(List list, int r) {
     }
 
 }

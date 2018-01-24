@@ -21,6 +21,7 @@ class CalculatorController {
         binaryOperationMap.put("-", SUBSTRACTION);
         binaryOperationMap.put("/", DIVISION);
         binaryOperationMap.put("*", MULTIPLICATION);
+        
     }
 
     static void startCalc() {
