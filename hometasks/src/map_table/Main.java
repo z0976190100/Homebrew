@@ -6,29 +6,46 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Table table = new Table("first", "second", "third");
+        TableAlter table = new TableAlter("first", "second", "third");
 
         System.out.println(table.header.toString());
 
-        table.setCellContentByColName(3, "first", new CellContent());
-        table.setCellContentByColName(3, "second",new CellContent());
-        table.setCellContentByColName(12, "first",new CellContent());
-        table.setCellContentByColName(10, "first",new CellContent());
-        table.setCellContentByColName(10, "third",new CellContent());
-        table.setCellContentByColName(15, "first",new CellContent());
 
-        //System.out.println(table.getCellContentByColName(3, "first"));
+        TableAlter.CellContent CellImpl = new TableAlter.CellContent() {
 
-        table.iterateRange(3, 9);
+            String content = "content1";
+            @Override
+            public void setCell(Object content) {
+            }
 
-        table.sortDescending("first");
+            @Override
+            public int compareTo(Object o) {
+                return 0;
+            }
+        } ;
+
+        TableAlter.CellContent CellImpl2 = new TableAlter.CellContent() {
+
+            String content = "content2";
+            @Override
+            public void setCell(Object content) {
+            }
+
+            @Override
+            public int compareTo(Object o) {
+                return 0;
+            }
+        } ;
+
+
+
        // System.out.println(table.sortedRows.toString());
     }
 
 }
 
 /*
-    Разработать класс, позволяющий работать с табличными данными.
+     Разработать класс, позволяющий работать с табличными данными.
         Каждая строка таблицы представляется в виде объекта Map.
         Каждая колонка таблицы характеризуется строковым названием (ключ объекта Map)
         Добавлять строки в данную таблицу можно с помощью метода add(Map map)

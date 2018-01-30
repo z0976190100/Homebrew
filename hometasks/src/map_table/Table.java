@@ -1,10 +1,15 @@
+/*
 package map_table;
 
 import java.util.*;
 
 public class Table {
 
+   // static long rowID = 0;
     String[] header;
+
+
+    //
     private List<Map<String, CellContent>> rows = new ArrayList<>();
     int pagesQuantity;
 
@@ -74,8 +79,10 @@ public class Table {
 
     private void qSort(CellContent arr[], int low, int high) {
         if (low < high) {
-            /* pi is partitioning index, arr[pi] is
-              now at right place */
+            */
+/* pi is partitioning index, arr[pi] is
+              now at right place *//*
+
             int pi = partition(arr, low, high);
 
             // Recursively sort elements before
@@ -114,4 +121,6 @@ public class Table {
     public void toStringWithPagination(List list, int r) {
     }
 
-}
+
+
+}*/
